@@ -10,7 +10,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/gameEntries",{
+mongoose.connect("mongodb+srv://thictony:<password>@cluster0.t7uatyp.mongodb.net/?retryWrites=true&w=majority",{
     useNewURLParser:true
 }).then(function(){
     console.log("Connected to MongoDB Database");
