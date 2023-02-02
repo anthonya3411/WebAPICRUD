@@ -3,14 +3,17 @@ var app = express();
 var path = require("path");
 var bodyparser = require("body-parser");
 var mongoose = require("mongoose");
+const database = require("./config/database");
 var port = process.env.port||3000;
+var db = require("./config/database");
 
  
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://thictony:<password>@cluster0.t7uatyp.mongodb.net/?retryWrites=true&w=majority",{
+mongoose.connect(db.mongoURI
+    ,{
     useNewURLParser:true
 }).then(function(){
     console.log("Connected to MongoDB Database");
