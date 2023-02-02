@@ -22,7 +22,7 @@ require("./models/Game");
 var Game = mongoose.model("game");
 
 app.get("/", function(req, res){
-    res.send("Wuss good jit");
+    res.send("gameList.html");
 })
 
 app.post("/saveGame", function(req, res){
@@ -31,15 +31,21 @@ app.post("/saveGame", function(req, res){
     
 
     new Game(req.body).save().then(function(){
-        res.redirect("index.html");
+        res.redirect("gameList.html");
     });
 })
 
 app.get("/getGames", function(req, res){
-    Game.find({}).then(function(){
-        console.log({game});
+    Game.find({}).then(function(game){
+       // console.log({game});
         res.json({game});
     })
+})
+
+app.post("/deleteGame", function(req, res){
+    console.log(`Game Deleted ${req.body.game}`);
+    Game.findByIdAndDelete(req.body.game).exec();
+    res.redirect("gameList.html")
 })
 
 
