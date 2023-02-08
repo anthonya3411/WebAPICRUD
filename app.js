@@ -22,34 +22,19 @@ mongoose.connect(db.mongoURI
 })
 
 require("./models/Game");
-var Game = mongoose.model("game");
+var HighScore = mongoose.model("HighScore");
 
 app.get("/", function(req, res){
-    res.send("gameList.html");
+    res.redirect("index.html");
 })
 
-app.post("/saveGame", function(req, res){
-    console.log(req.body);
-    //res.send(req.body);
-    
-
-    new Game(req.body).save().then(function(){
-        res.redirect("gameList.html");
-    });
-})
-
-app.get("/getGames", function(req, res){
-    Game.find({}).then(function(game){
-       // console.log({game});
-        res.json({game});
+app.post("/saveHighscore", function(req, res){
+    console.log(req.body)
+    new HighScore(req.body).save().then(function(){
+        res.redirect("index.html");
     })
 })
 
-app.post("/deleteGame", function(req, res){
-    console.log(`Game Deleted ${req.body.game}`);
-    Game.findByIdAndDelete(req.body.game).exec();
-    res.redirect("gameList.html")
-})
 
 
 app.use(express.static(__dirname+"/pages"));
