@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <a href="index.html" style="
+            font-weight: 200;border: 2px solid black;
+            margin-left: 350px;">Game</a>
+    </nav>
+
+    <ol id="leaderboard">
+
+    </ol>
+
+    <script>
+        fetch("/getHighScores").then(function(scores){
+            scores.json().then(function(TheScores){
+                var orderedScores = TheScores.highscores;
+                console.log(orderedScores);
+
+                for(var i = 0; i < orderedScores.length; i++){
+                    for(var j = 0; j < orderedScores.length - 1; j++){
+                        if(orderedScores[j].Score < orderedScores[j + 1].Score){
+
+                            var temp = orderedScores[j];
+                            orderedScores[j] = orderedScores[j + 1];
+                            orderedScores[j + 1] = temp;
+                        }
+                    }
+                }
+
+                for(var i = 0; i < 10; i++){
+                    var gameElement = document.createElement("li");
+                    gameElement.innerHTML = orderedScores[i].Name + " : " + orderedScores[i].Score;
+                    document.getElementById("leaderboard").appendChild(gameElement);
+                }                
+            })
+        })
+    </script>
+</body>
+</html>

@@ -35,7 +35,11 @@ app.post("/saveHighscore", function(req, res){
     })
 })
 
-
+app.get("/getHighScores", function(req, res){
+    HighScore.find({}).then(function(highscores){
+        res.json({highscores});
+    })
+})
 
 app.use(express.static(__dirname+"/pages"));
 app.listen(port, function(){
